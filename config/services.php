@@ -34,15 +34,13 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
-    'anthropic' => [
-    'api_key' => env('ANTHROPIC_API_KEY'),
-    'model' => env('ANTHROPIC_MODEL', 'claude-sonnet-4-5'),
+'gemini' => [
+    'api_key' => env('GEMINI_API_KEY'),
+    'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
 ],
 
 'ml_classifier' => [
-    'url' => env('ML_CLASSIFIER_URL', 'http://127.0.0.1:8001'),
+    'url' => env('ML_CLASSIFIER_URL', 'http://ml:8001'),
 ],
-
-
+'reply_provider' => env('REPLY_PROVIDER', 'template'),
 ];

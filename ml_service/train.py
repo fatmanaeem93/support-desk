@@ -12,11 +12,7 @@ def load_data(path: str = "tickets_dataset.csv") -> pd.DataFrame:
 
 
 def build_pipeline() -> Pipeline:
-    """
-    Pipeline بيجمع خطوتين:
-    1. TfidfVectorizer: يحوّل النص لأرقام (features) بناءً على أهمية الكلمات
-    2. LogisticRegression: موديل تصنيف بسيط وفعّال لمشاكل زي دي
-    """
+
     return Pipeline([
         ("tfidf", TfidfVectorizer(
             max_features=2000,

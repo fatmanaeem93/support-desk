@@ -10,7 +10,6 @@ models: dict = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # تحميل الموديلات مرة واحدة عند بدء تشغيل الخدمة، مش مع كل طلب
     try:
         models["category"] = joblib.load("category_model.joblib")
         models["priority"] = joblib.load("priority_model.joblib")

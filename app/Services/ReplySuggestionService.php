@@ -23,6 +23,9 @@ class ReplySuggestionService
 
     public function suggest(string $ticketText, string $category, string $priority): string
     {
+        if (config('services.reply_provider', 'template') === 'template') {
+            return $this->templateReply($category, $priority);
+        }
         if ($this->apiKey === '') {
             throw new RuntimeException('Anthropic API key غير مضبوط.');
         }
@@ -59,4 +62,22 @@ class ReplySuggestionService
 
         return $text;
     }
+    private function templateReply(string $category, string $priority): string
+{
+    $replies = [
+        'technical' => 'شكراً لتواصلك. نعتذر عن المشكلة التقنية، وسيراجع فريق الدعم طلبك ويعود إليك قريباً. ولتسريع التشخيص، أخبرنا بنوع الجهاز والمتصفح وخطوات تكرار المشكلة.',
+        'billing' => 'شكراً لتواصلك. سنراجع فاتورتك ونعود إليك بالتفاصيل. يرجى تزويدنا برقم الفاتورة وتاريخ العملية.',
+        'account' => 'شكراً لتواصلك. لحماية حسابك سنتحقق من هويتك قبل أي تغيير. يرجى تأكيد البريد الإلكتروني المسجل في حسابك.',
+        'feature_request' => 'شكراً على اقتراحك، سنحيله إلى فريق المنتج لدراسته.',
+        'other' => 'شكراً لتواصلك، وسيرد عليك أحد أعضاء الفريق قريباً.',
+    ];
+
+    $reply = $replies[$category] ?? $replies['other'];
+
+    if (in_array($priority, ['high', 'urgent'], true)) {
+        $reply .= ' تم تحديد طلبك كأولوية عالية.';
+    }
+
+    return $reply;
+}
 }
