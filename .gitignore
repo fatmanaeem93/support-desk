@@ -25,3 +25,19 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# local docker helpers
+/php.bat
+/composer.bat
+/run-*.bat
+
+# ml_service generated files & python cache
+/ml_service/*.joblib
+/ml_service/tickets_dataset.csv
+/ml_service/venv/
+/ml_service/.venv/
+/ml_service/.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+/database/database.sqlite
